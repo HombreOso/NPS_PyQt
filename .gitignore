@@ -1,0 +1,10 @@
+*.dcm
+*.DS_Store
+*.png
+*.jpg
+*.bmp
+*.xlsx
+*.docx
+*.xls
+*.doc
+*.o
