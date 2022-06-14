@@ -10,6 +10,7 @@ import QtQuick.Controls
 import MainWindow_NPS
 
 Rectangle {
+    id: rectangle
     width: 700
     height: 630
     color: "#cfcfcf"
@@ -30,6 +31,7 @@ Rectangle {
         y: 580
         width: 512
         height: 50
+        wheelEnabled: true
         value: 0.5
     }
 
@@ -42,7 +44,7 @@ Rectangle {
     }
 
     RadioButton {
-        id: radioButton
+        id: manualRectanglerb
         x: 531
         y: 62
         width: 134
@@ -51,7 +53,7 @@ Rectangle {
     }
 
     RadioButton {
-        id: radioButton1
+        id: fixedSizeRectanglerb
         x: 531
         y: 92
         width: 134
@@ -60,7 +62,7 @@ Rectangle {
     }
 
     RadioButton {
-        id: radioButton2
+        id: rectangleArrayrb
         x: 531
         y: 122
         width: 134
@@ -68,17 +70,8 @@ Rectangle {
         text: qsTr("rectangle array")
     }
 
-    Label {
-        id: label2
-        x: 531
-        y: 40
-        width: 134
-        height: 16
-        text: qsTr("ROI selection tool")
-    }
-
     RadioButton {
-        id: radioButton3
+        id: wholeImagerb
         x: 531
         y: 152
         width: 134
@@ -86,8 +79,18 @@ Rectangle {
         text: qsTr("whole image")
     }
 
+    Label {
+        id: roiSelectionTool
+        x: 531
+        y: 40
+        width: 134
+        height: 16
+        text: qsTr("ROI selection tool")
+    }
+
+
     Button {
-        id: button
+        id: eraseButton
         x: 531
         y: 182
         width: 93
@@ -96,7 +99,7 @@ Rectangle {
     }
 
     Button {
-        id: button1
+        id: saveButton
         x: 531
         y: 218
         width: 134
@@ -115,5 +118,17 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         font.italic: true
         font.weight: Font.Normal
+    }
+
+    ProgressBar {
+        id: progressBar
+        x: 480
+        y: 389
+        width: 320
+        height: 50
+        transformOrigin: Item.Center
+        clip: false
+        rotation: 90
+        value: 0.5
     }
 }
