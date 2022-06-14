@@ -14,6 +14,18 @@ Rectangle {
     width: 700
     height: 630
     color: "#cfcfcf"
+    property alias progressBar: progressBar
+    property alias coordinates_label1: coordinates_label1
+    property alias saveButton: saveButton
+    property alias eraseButton: eraseButton
+    property alias roiSelectionTool: roiSelectionTool
+    property alias wholeImagerb: wholeImagerb
+    property alias rectangleArrayrb: rectangleArrayrb
+    property alias fixedSizeRectanglerb: fixedSizeRectanglerb
+    property alias manualRectanglerb: manualRectanglerb
+    property alias coordinates_label: coordinates_label
+    property alias slider: slider
+    property alias sliding_images_label: sliding_images_label
 
 
     Label {
