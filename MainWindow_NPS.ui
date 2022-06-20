@@ -210,7 +210,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSelect_folder">
    <property name="text">
-    <string>Select folder</string>
+    <string>Select folder dcms</string>
    </property>
   </action>
   <action name="actionSelect_separate_image">
