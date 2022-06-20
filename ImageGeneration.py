@@ -68,13 +68,16 @@ def create_png_image(key):
     png_image_path = StartClass.create_image_from_2d_array(arr_2d=curr_array,
                                                            filename='03.PNG_images/%s.png' %
                                                                     name_of_file_without_extension)
+    # store path to png image in list
+    # self.all_images.append(png_image_path)
+    # return self.all_images
 
     print('create_png_image is done')
 
     return png_image_path
 
 
-def create_base_array(image_file):
+def create_base_array(self, image_file):
 
     """
     Read current dicom file and retrieve pixel array.
@@ -100,36 +103,55 @@ def create_base_array(image_file):
             print(image_file)
         gc.collect()
         _array = image_dcm.pixel_array
-        metadata_subdict = self.metadata_subdict
-        self.metadata_dict.update({image_file: self.metadata_subdict})
+        # self.metadata_subdict = StartClass.create_dataset_dictionary(
+        #     list_of_indices=self.metadata_tags_list,
+        #     dataset_dicom=image_dcm
+        # )
+        # metadata_subdict = self.metadata_subdict
+        # self.metadata_dict.update({image_file: self.metadata_subdict})
 
     # if we handle file with another file-extension
     else:
         # read image as list with PIL-library
         img = Image.open(image_file)
         # convert list into numpy-array
-        self.array = np.array(img)
+        _array = np.array(img)
         # if we have colored image
         if len(self.array.shape) > 2:
-            self.array = self.rgb2gray(self.array)
-        self.metadata_subdict = {'undefined': 'undefined'}
-        metadata_subdict = {'undefined': 'undefined'}
+            _array = rgb2gray(_array)
+        # self.metadata_subdict = {'undefined': 'undefined'}
+        # metadata_subdict = {'undefined': 'undefined'}
 
         # if the image is not a dicom, store 'undefined' in metadata_dict
         self.metadata_dict.update({image_file: {'undefined_tag': 'undefined'}})
         image_dcm = ''
     # image measurements
-    self.px_height = self.array.shape[0]
-    self.px_width = self.array.shape[1]
+    self.px_height = _array.shape[0]
+    self.px_width = _array.shape[1]
     # image file base name without extension
     self.basename = os.path.basename(image_file)[:-4]
     # image file base name with extension
     self.basename_w_ext = os.path.basename(image_file)
 
-    ret_dict = {'base_array': self.array.astype(np.int16),
-                'metadata_subdict': metadata_subdict,
+    # ret_dict = {'base_array': self.array.astype(np.int16),
+    #             'metadata_subdict': metadata_subdict,
+    #             'whole_dcm': image_dcm}
+
+    ret_dict = {'base_array': _array.astype(np.int16),
                 'whole_dcm': image_dcm}
 
     print('create_base_array is done')
 
     return ret_dict
+
+
+def rgb2gray(rgb):
+
+    """
+    If we handle with RGB-image, convert it to grayscale.
+    :param rgb: ndarray
+        ndarray (3d) of image to be transformed.
+    :return: ndarray
+        ndarray (2d) of the converted image
+    """
+    return np.dot(rgb[..., :3], [0.299, 0.587, 0.114])
