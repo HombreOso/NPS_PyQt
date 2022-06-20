@@ -1,0 +1,11 @@
+XlsxWriter
+openpyxl
+python-docx
+natsort
+scipy
+pandas
+numpy
+matplotlib
+pydicom
+PyQt6
+PySide2
