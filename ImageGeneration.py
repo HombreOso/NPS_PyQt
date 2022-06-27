@@ -24,7 +24,6 @@ import multiprocessing as mp
 import json
 
 
-
 def create_image_from_2d_array(arr_2d, filename):
     """
     Normalize passed 2d_array between values 0 and 255 and create image saved as filename.
@@ -39,9 +38,9 @@ def create_image_from_2d_array(arr_2d, filename):
 
     print('create_image_from_2d_array is being executed')
 
-    image_array = np.array(StartClass.norm_2d_array(arr_2d=arr_2d,
-                                                    value_min=0,
-                                                    value_max=255))
+    image_array = np.array(norm_2d_array(arr_2d=arr_2d,
+                                         value_min=0,
+                                         value_max=255))
     cv2.imwrite(filename=filename, img=image_array)
 
     print('create_image_from_2d_array is done')
@@ -77,7 +76,7 @@ def create_png_image(key):
     return png_image_path
 
 
-def create_base_array(self, image_file):
+def create_base_array(image_file):
 
     """
     Read current dicom file and retrieve pixel array.
@@ -123,15 +122,15 @@ def create_base_array(self, image_file):
         # metadata_subdict = {'undefined': 'undefined'}
 
         # if the image is not a dicom, store 'undefined' in metadata_dict
-        self.metadata_dict.update({image_file: {'undefined_tag': 'undefined'}})
+        metadata_dict.update({image_file: {'undefined_tag': 'undefined'}})
         image_dcm = ''
     # image measurements
-    self.px_height = _array.shape[0]
-    self.px_width = _array.shape[1]
+    px_height = _array.shape[0]
+    px_width = _array.shape[1]
     # image file base name without extension
-    self.basename = os.path.basename(image_file)[:-4]
+    basename = os.path.basename(image_file)[:-4]
     # image file base name with extension
-    self.basename_w_ext = os.path.basename(image_file)
+    basename_w_ext = os.path.basename(image_file)
 
     # ret_dict = {'base_array': self.array.astype(np.int16),
     #             'metadata_subdict': metadata_subdict,
@@ -155,3 +154,27 @@ def rgb2gray(rgb):
         ndarray (2d) of the converted image
     """
     return np.dot(rgb[..., :3], [0.299, 0.587, 0.114])
+
+
+def norm_2d_array(arr_2d, value_min, value_max):
+    """
+    Normalize 2d-array to values between value_min and value_max.
+    :param arr_2d: ndarray (2d)
+        Array to be normalized.
+    :param value_min: int or float
+        Minimal value of normalized array.
+    :param value_max: int or float
+        Maximal value of normalized array.
+    :return: ndarray (2d)
+        Noirmalized array.
+    """
+
+    print('norm_2d_array is being executed')
+
+    max_value = np.max(arr_2d)
+    min_value = np.min(arr_2d)
+    normalized_2d_array = value_min + (np.array(arr_2d) - min_value) / (max_value - min_value) * value_max
+
+    print('norm_2d_array is done')
+
+    return normalized_2d_array
