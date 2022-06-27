@@ -178,3 +178,23 @@ def norm_2d_array(arr_2d, value_min, value_max):
     print('norm_2d_array is done')
 
     return normalized_2d_array
+
+
+def create_aux_folder(folder_name):
+
+    """
+    Create auxiliary folder in the directory with executable py-file.
+    :param folder_name: string
+        Name of folder to be created (not path to it!)
+    :return: string
+        Absolute path to the created folder.
+    """
+    # current folder with py-file
+    cur_fold = os.path.dirname(os.path.abspath(__file__))
+    # path to auxiliary folder
+    aux_folder = cur_fold + '/' + folder_name
+    # if the folder does not exist yet, create it
+    if not os.path.exists(aux_folder):
+        os.mkdir(aux_folder)
+    # return path to folder
+    return aux_folder
