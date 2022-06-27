@@ -1,5 +1,6 @@
 XlsxWriter
 openpyxl
+opencv-contrib-python
 python-docx
 natsort
 scipy
