@@ -1,0 +1,11 @@
+1) create auxiliary folders:
+	a) aux_folders/dicom2png
+	b) aux_folders/NPS_2d
+	c) aux_folders/NPS_1d
+
+2) select a folder with dicoms (or other type of images)
+
+3) create file dictionary
+
+
+
