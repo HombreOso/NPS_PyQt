@@ -3,18 +3,17 @@ from PyQt6.QtCore import QPoint, QRect, QSize, Qt
 from PyQt6.QtGui import *
 from PyQt6.QtWidgets import QLabel, QApplication, QRubberBand
 
-
 class Window(QLabel):
 
     def __init__(self, parent = None):
 
       QLabel.__init__(self, parent)
-      self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+      self.rubberBand = QRubberBand(QRubberBand.Shape.Rectangle, self)
       self.origin = QPoint()
 
     def mousePressEvent(self, event):
 
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
 
             self.origin = QPoint(event.pos())
             self.rubberBand.setGeometry(QRect(self.origin, QSize()))
@@ -27,33 +26,33 @@ class Window(QLabel):
 
     def mouseReleaseEvent(self, event):
 
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.MouseButton.LeftButton:
           self.rubberBand.hide()
 
 
-    def create_pixmap():
+def create_pixmap():
 
-      def color():
-          r = random.randrange(0, 255)
-          g = random.randrange(0, 255)
-          b = random.randrange(0, 255)
-          return QColor(r, g, b)
+    def color():
+        r = random.randrange(0, 255)
+        g = random.randrange(0, 255)
+        b = random.randrange(0, 255)
+        return QColor(r, g, b)
 
-      def point():
-          return QPoint(random.randrange(0, 400), random.randrange(0, 300))
+    def point():
+        return QPoint(random.randrange(0, 400), random.randrange(0, 300))
 
-      pixmap = QPixmap(400, 300)
-      pixmap.fill(color())
-      painter = QPainter()
-      painter.begin(pixmap)
-      i = 0
-      while i < 1000:
-          painter.setBrush(color())
-          painter.drawPolygon(QPolygon([point(), point(), point()]))
-          i += 1
+    pixmap = QPixmap(400, 300)
+    pixmap.fill(color())
+    painter = QPainter()
+    painter.begin(pixmap)
+    i = 0
+    while i < 1000:
+        painter.setBrush(color())
+        painter.drawPolygon(QPolygon([point(), point(), point()]))
+        i += 1
 
-      painter.end()
-      return pixmap
+    painter.end()
+    return pixmap
 
 
 if __name__ == "__main__":
@@ -66,4 +65,4 @@ if __name__ == "__main__":
       window.resize(400, 300)
       window.show()
 
-      sys.exit(app.exec_())
+      sys.exit(app.exec())
