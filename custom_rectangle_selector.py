@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtCore import QRect, Qt
 from PyQt6.QtGui import QImage, QPixmap, QPainter, QPen
 import cv2, sys
+import PIL
 
 from PIL import Image
 
@@ -71,6 +72,9 @@ class SelectImageTool(QLabel):
 
         try:
             imgSourcePicture = Image.open(self.aStrImageName)
+
+            # prevent rotating the jpeg image
+            imgSourcePicture = PIL.ImageOps.exif_transpose(imgSourcePicture)
 
             tupSize = imgSourcePicture.size
 
